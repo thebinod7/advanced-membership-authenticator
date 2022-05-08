@@ -1,8 +1,13 @@
 const MatrixModel = require("../models/matrix");
 
 const create = (payload) => {
-  let obj = new MatrixModel(payload);
-  return obj.save();
+  try {
+    let obj = new MatrixModel(payload);
+    return obj.save();
+  } catch (err) {
+    console.log("ERR==>", err);
+    throw err;
+  }
 };
 
 const list = async () => {

@@ -16,7 +16,7 @@ router.get("/about", (req, res) => {
   res.render("about");
 });
 
-router.post("/create", (req, res) => {
+router.post("/matrix/create", (req, res) => {
   let payload = req.body;
   MatrixController.create(payload)
     .then((d) => {
@@ -27,7 +27,7 @@ router.post("/create", (req, res) => {
     });
 });
 
-router.get("/list", (req, res) => {
+router.get("/matrix/list", (req, res) => {
   MatrixController.list()
     .then((d) => {
       res.json(d);
