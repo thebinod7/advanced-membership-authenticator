@@ -1,6 +1,11 @@
 const router = require("express").Router();
 const MatrixController = require("../controllers/matrix.controller");
 
+const { membershipAuthenticate } = require("../middleware");
+const { MEMBERSHIP } = require("../constants");
+
+const { BUSINESS, ENTERPRISE } = MEMBERSHIP;
+
 router.get("/", (req, res, next) => {
   MatrixController.listUsers().then((d) => {
     const data = {
@@ -59,5 +64,15 @@ router.put("/matrix/:id", (req, res) => {
       res.status(500).send("Server error.");
     });
 });
+
+router.get(
+  "/matrix/business",
+  membershipAuthenticate("Business"),
+  (req, res, next) => {
+    return { success: true };
+  }
+);
+
+router.get("/enterprise", () => {});
 
 module.exports = router;

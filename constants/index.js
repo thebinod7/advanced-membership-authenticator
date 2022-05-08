@@ -1,4 +1,4 @@
-export const MEMBERSHIP = {
+const MEMBERSHIP = {
   FREE: {
     RESOURCES: ["User Management", "NFT Management", "Collection Management"],
     SUPPORTED_CHAINS: [97],
@@ -28,8 +28,10 @@ export const MEMBERSHIP = {
     ],
     SUPPORTED_CHAINS: [97, 80001, 1],
     LIMIT: {
-      NFT_CREATE: Unlimited,
+      NFT_CREATE: 1000,
       UPLOAD_SIZE: 10, // MB
     },
   },
 };
+
+module.exports = { MEMBERSHIP };
