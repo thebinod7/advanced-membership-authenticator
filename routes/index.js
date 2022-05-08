@@ -1,8 +1,8 @@
 const router = require("express").Router();
-const UserController = require("../controllers/user.controller");
+const MatrixController = require("../controllers/matrix.controller");
 
 router.get("/", (req, res, next) => {
-  UserController.listUsers().then((d) => {
+  MatrixController.listUsers().then((d) => {
     const data = {
       title: "Node Basic",
       message: "Welcome to million dollar app ;)",
@@ -16,9 +16,9 @@ router.get("/about", (req, res) => {
   res.render("about");
 });
 
-router.post("/signup", (req, res) => {
+router.post("/create", (req, res) => {
   let payload = req.body;
-  UserController.signupUser(payload)
+  MatrixController.create(payload)
     .then((d) => {
       res.status(200).send(d);
     })
@@ -27,8 +27,8 @@ router.post("/signup", (req, res) => {
     });
 });
 
-router.get("/users", (req, res) => {
-  UserController.listUsers()
+router.get("/list", (req, res) => {
+  MatrixController.list()
     .then((d) => {
       res.json(d);
     })
@@ -37,10 +37,10 @@ router.get("/users", (req, res) => {
     });
 });
 
-router.get("/users/:id", (req, res) => {
-  UserController.getById(req.params.id)
+router.get("/matrix/:id", (req, res) => {
+  MatrixController.getById(req.params.id)
     .then((d) => {
-      if (!d) return res.status(404).send("User does not exist.");
+      if (!d) return res.status(404).send("Data does not exist");
       res.json(d);
     })
     .catch((e) => {
@@ -48,23 +48,11 @@ router.get("/users/:id", (req, res) => {
     });
 });
 
-router.put("/users/:id", (req, res) => {
+router.put("/matrix/:id", (req, res) => {
   const payload = req.body;
-  UserController.updateUser(req.params.id, payload)
+  MatrixController.update(req.params.id, payload)
     .then((d) => {
-      if (!d) return res.status(500).send("Could not update user.");
-      res.status(200).send(d);
-    })
-    .catch((e) => {
-      res.status(500).send("Server error.");
-    });
-});
-
-router.delete("/users/:id", (req, res) => {
-  UserController.deleteUser(req.params.id)
-    .then((d) => {
-      if (d.deletedCount < 1)
-        return res.status(404).send("User does not exist.");
+      if (!d) return res.status(500).send("Could not update data");
       res.status(200).send(d);
     })
     .catch((e) => {
