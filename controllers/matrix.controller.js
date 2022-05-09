@@ -19,6 +19,10 @@ const getById = (id) => {
   return MatrixModel.findById(id);
 };
 
+const getByName = (name) => {
+  return MatrixModel.findOne({ name });
+};
+
 const update = (id, payload) => {
   return MatrixModel.findOneAndUpdate(
     { _id: id },
@@ -27,4 +31,4 @@ const update = (id, payload) => {
   );
 };
 
-module.exports = { create, list, getById, update };
+module.exports = { create, list, getById, update, getByName };

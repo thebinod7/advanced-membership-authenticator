@@ -42,6 +42,18 @@ router.get("/matrix/list", (req, res) => {
     });
 });
 
+router.get(
+  "/matrix/sales",
+  membershipAuthenticate("Sales Data"),
+  (req, res) => {
+    try {
+      res.json({ acccess: true });
+    } catch (err) {
+      throw err;
+    }
+  }
+);
+
 router.get("/matrix/:id", (req, res) => {
   MatrixController.getById(req.params.id)
     .then((d) => {
@@ -64,14 +76,6 @@ router.put("/matrix/:id", (req, res) => {
       res.status(500).send("Server error.");
     });
 });
-
-router.get(
-  "/matrix/business",
-  membershipAuthenticate("Business"),
-  (req, res, next) => {
-    return { success: true };
-  }
-);
 
 router.get("/enterprise", () => {});
 
